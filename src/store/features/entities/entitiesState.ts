@@ -94,6 +94,7 @@ const musicAdapter = createEntityAdapter<Music>({
   sortComparer: sortByFilename,
 });
 const variablesAdapter = createEntityAdapter<Variable>();
+const eventsAdapteer = createEntityAdapter<ScriptEvent>();
 
 export const initialState: EntitiesState = {
   actors: actorsAdapter.getInitialState(),
@@ -105,6 +106,7 @@ export const initialState: EntitiesState = {
   customEvents: customEventsAdapter.getInitialState(),
   music: musicAdapter.getInitialState(),
   variables: variablesAdapter.getInitialState(),
+  events: eventsAdapteer.getInitialState(),
 };
 
 const moveSelectedEntity = ({
@@ -351,6 +353,7 @@ const loadProject: CaseReducer<
   musicAdapter.setAll(state.music, entities.music || {});
   customEventsAdapter.setAll(state.customEvents, entities.customEvents || {});
   variablesAdapter.setAll(state.variables, entities.variables || {});
+  eventsAdapteer.setAll(state.events, entities.events || {})
   fixAllScenesWithModifiedBackgrounds(state);
 };
 

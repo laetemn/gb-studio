@@ -144,6 +144,7 @@ export interface EntitiesState {
   customEvents: EntityState<CustomEvent>;
   music: EntityState<Music>;
   variables: EntityState<Variable>;
+  events: EntityState<ScriptEvent>;
 }
 
 export type Asset = {

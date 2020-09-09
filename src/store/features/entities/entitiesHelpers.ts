@@ -38,7 +38,9 @@ const sceneSchema = new schema.Entity("scenes", {
   playerHit3Script: [eventSchema],
 });
 
-const customEventsSchema = new schema.Entity("customEvents");
+const customEventsSchema = new schema.Entity("customEvents", {
+  script: [eventSchema],
+});
 
 const palettesSchema = new schema.Entity("palettes");
 
@@ -80,6 +82,7 @@ export const denormalizeEntities = (
     customEvents: state.customEvents.entities,
     music: state.music.entities,
     variables: state.variables.entities,
+    events: state.events.entities
   };
   return denormalize(input, projectSchema, entities);
 };
