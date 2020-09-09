@@ -3,28 +3,43 @@ import { ProjectEntitiesData, EntitiesState, EntityKey } from "./entitiesTypes";
 import { EntityId, Dictionary } from "@reduxjs/toolkit";
 
 const backgroundSchema = new schema.Entity("backgrounds");
+
 const musicSchema = new schema.Entity("music");
-const actorSchema = new schema.Entity("actors");
-const triggerSchema = new schema.Entity("triggers");
-/*
+
 // Normalise events
 const eventSchema = new schema.Entity("events");
 eventSchema.define({
-  children: {
-    true: [eventSchema],
-    false: [eventSchema],
-    script: [eventSchema]
-  }
+  children: new schema.Values([eventSchema]),
 });
-*/
+
+const actorSchema = new schema.Entity("actors", {
+  script: [eventSchema],
+  startScript: [eventSchema],
+  updateScript: [eventSchema],
+  hit1Script: [eventSchema],
+  hit2Script: [eventSchema],
+  hit3Script: [eventSchema],
+});
+
+const triggerSchema = new schema.Entity("triggers", {
+  script: [eventSchema],
+});
+
 const spriteSheetsSchema = new schema.Entity("spriteSheets");
+
 const variablesSchema = new schema.Entity("variables");
+
 const sceneSchema = new schema.Entity("scenes", {
   actors: [actorSchema],
   triggers: [triggerSchema],
-  // script: [eventSchema],
+  script: [eventSchema],
+  playerHit1Script: [eventSchema],
+  playerHit2Script: [eventSchema],
+  playerHit3Script: [eventSchema],
 });
+
 const customEventsSchema = new schema.Entity("customEvents");
+
 const palettesSchema = new schema.Entity("palettes");
 
 const projectSchema = {
