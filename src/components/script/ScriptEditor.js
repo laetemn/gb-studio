@@ -210,13 +210,12 @@ class ScriptEditor extends Component {
 
     return (
       <div className="ScriptEditor">
-        {value.slice(0, limit).map(action => (
+        {value.slice(0, limit).map(eventId => (
           <ScriptEditorEvent
-            key={action.id}
-            id={action.id}
+            key={eventId}
+            id={eventId}
             entityId={entityId}
             type={type}
-            action={action}
             moveActions={this.moveActions}
             onAdd={this.onAdd}
             onRemove={this.onRemove}
@@ -241,7 +240,7 @@ class ScriptEditor extends Component {
 
 ScriptEditor.propTypes = {
   type: PropTypes.string.isRequired,
-  value: PropTypes.arrayOf(PropTypes.shape({})),
+  value: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func.isRequired,
   musicIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   sceneIds: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -252,7 +251,7 @@ ScriptEditor.propTypes = {
   selectCustomEvent: PropTypes.func.isRequired,
   entityId: PropTypes.string.isRequired,
   scope: PropTypes.string.isRequired,
-  pasteCustomEvents: PropTypes.string.isRequired
+  pasteCustomEvents: PropTypes.func.isRequired
 };
 
 ScriptEditor.defaultProps = Object.create(

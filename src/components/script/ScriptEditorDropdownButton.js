@@ -135,7 +135,7 @@ class ScriptEditorDropdownButton extends Component {
 }
 
 ScriptEditorDropdownButton.propTypes = {
-  value: PropTypes.arrayOf(PropTypes.shape({})),
+  value: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func.isRequired,
   copyScript: PropTypes.func.isRequired,
   pasteCustomEvents: PropTypes.func.isRequired,

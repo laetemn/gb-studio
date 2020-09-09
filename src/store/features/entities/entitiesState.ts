@@ -94,7 +94,7 @@ const musicAdapter = createEntityAdapter<Music>({
   sortComparer: sortByFilename,
 });
 const variablesAdapter = createEntityAdapter<Variable>();
-const eventsAdapteer = createEntityAdapter<ScriptEvent>();
+const eventsAdapter = createEntityAdapter<ScriptEvent>();
 
 export const initialState: EntitiesState = {
   actors: actorsAdapter.getInitialState(),
@@ -106,7 +106,7 @@ export const initialState: EntitiesState = {
   customEvents: customEventsAdapter.getInitialState(),
   music: musicAdapter.getInitialState(),
   variables: variablesAdapter.getInitialState(),
-  events: eventsAdapteer.getInitialState(),
+  events: eventsAdapter.getInitialState(),
 };
 
 const moveSelectedEntity = ({
@@ -353,7 +353,7 @@ const loadProject: CaseReducer<
   musicAdapter.setAll(state.music, entities.music || {});
   customEventsAdapter.setAll(state.customEvents, entities.customEvents || {});
   variablesAdapter.setAll(state.variables, entities.variables || {});
-  eventsAdapteer.setAll(state.events, entities.events || {})
+  eventsAdapter.setAll(state.events, entities.events || {})
   fixAllScenesWithModifiedBackgrounds(state);
 };
 
@@ -1979,6 +1979,9 @@ export const musicSelectors = musicAdapter.getSelectors(
 );
 export const variableSelectors = variablesAdapter.getSelectors(
   (state: RootState) => state.project.present.entities.variables
+);
+export const eventSelectors = eventsAdapter.getSelectors(
+  (state: RootState) => state.project.present.entities.events
 );
 
 export const getMaxSceneRight = createSelector(

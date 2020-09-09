@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { clipboard } from "electron";
 import cx from "classnames";
 import uuid from "uuid/v4";
@@ -18,6 +19,7 @@ import { MenuItem, MenuDivider } from "../library/Menu";
 import l10n from "../../lib/helpers/l10n";
 import { EventShape } from "../../store/stateShape";
 import events from "../../lib/events";
+import { eventSelectors } from "../../store/features/entities/entitiesState";
 
 const COMMENT_PREFIX = "//";
 
@@ -371,14 +373,13 @@ class ScriptEditorEvent extends Component {
                           command: EVENT_END
                         }
                       ]
-                    ).map(childAction => (
+                    ).map(childEventId => (
                       <ScriptEditorEventDnD
-                        key={childAction.id}
-                        id={childAction.id}
+                        key={childEventId}
+                        id={childEventId}
                         entityId={entityId}
                         type={type}
-                        path={`${id}_true_${childAction.id}`}
-                        action={childAction}
+                        path={`${id}_true_${childEventId}`}
                         moveActions={moveActions}
                         onAdd={onAdd}
                         onRemove={onRemove}
@@ -426,6 +427,13 @@ ScriptEditorEvent.propTypes = {
   connectDropTarget: PropTypes.func.isRequired
 };
 
+function mapStateToProps(state, props) {
+  const event = eventSelectors.selectById(state, props.id);
+  return {
+    action: event
+  };
+}
+
 const ScriptEditorEventDnD = DropTarget(
   ItemTypes.CARD,
   cardTarget,
@@ -439,7 +447,7 @@ const ScriptEditorEventDnD = DropTarget(
     connectDragSource: dndConnect.dragSource(),
     connectDragPreview: dndConnect.dragPreview(),
     isDragging: monitor.isDragging()
-  }))(ScriptEditorEvent)
+  }))(connect(mapStateToProps)(ScriptEditorEvent))
 );
 
 export default ScriptEditorEventDnD;
